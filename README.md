@@ -1,4 +1,4 @@
-# Supply Chain Control Tower — Power BI Dashboard
+# Supply Chain Control Tower Power BI Dashboard (IN PROGRESS)
 
 Interactive delivery-performance dashboard built on the **DataCo Smart Supply Chain** dataset (180K+ order lines, 65,752 orders): on-time delivery monitoring, real vs scheduled shipping analysis, and row-level security.
 
@@ -23,8 +23,8 @@ Delivery delays are not driven by geography or seasonality — they are driven b
 
 ## Dashboard Pages
 
-1. **Executive Overview** — headline KPIs, orders by market and year
-2. **Delivery Performance** — on-time % by shipping mode, real vs scheduled days, summary matrix, Year/Market slicers
+1. **Executive Overview**  headline KPIs, orders by market and year
+2. **Delivery Performance** on-time % by shipping mode, real vs scheduled days, summary matrix, Year/Market slicers
 
 ![Executive Overview](images/01_executive_overview.png)
 ![Delivery Performance](images/02_delivery_performance.png)
@@ -33,10 +33,10 @@ Delivery delays are not driven by geography or seasonality — they are driven b
 
 Star schema: `Facts_Order` (fact) + `Dim_Date`, `Dim_Customer`, `Dim_Product` dimensions, plus a `UserSecurity` mapping table for dynamic RLS.
 
-## Security — Row-Level Security (RLS)
+## Securit  Row-Level Security (RLS)
 
-- **Static role** — `Europe Manager`: `Facts_Order[Market] = "Europe"`
-- **Dynamic role** — `Regional Manager`:
+- **Static role**  `Europe Manager`: `Facts_Order[Market] = "Europe"`
+- **Dynamic role**  `Regional Manager`:
 
 ```dax
 [Market] = LOOKUPVALUE(
@@ -52,10 +52,10 @@ Tested in Desktop with *View as* + *Other user*; unmapped users see no data (fai
 Inspired by the capacity-simulation dashboards I built in aerospace:
 
 - [ ] **What-if parameters** (sliders) — simulate SLA recalibration and demand scenarios
-- [ ] **Scenario switching** — baseline vs adjusted assumptions
-- [ ] **Geographic view** — order latitude/longitude on Azure Maps
+- [ ] **Scenario switching**  baseline vs adjusted assumptions
+- [ ] **Geographic view**  order latitude/longitude on Azure Maps
 - [ ] **Drillthrough** to order-level detail + report tooltip pages
-- [ ] **Field parameters** — user-selected metrics and dimensions
+- [ ] **Field parameters** —user-selected metrics and dimensions
 - [ ] Bookmarks & page navigation
 
 ## Tech Stack
