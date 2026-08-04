@@ -47,7 +47,7 @@ Star schema: `Facts_Order` (fact) + `Dim_Date`, `Dim_Customer`, `Dim_Product` di
 
 Tested in Desktop with *View as* + *Other user*; unmapped users see no data (fail-closed).
 
-## Roadmap — v2 "Simulation" (in progress)
+## Roadmap  v2 "Simulation" (in progress)
 
 
 - [ ] **What-if parameters** (sliders) simulate SLA recalibration and demand scenarios
