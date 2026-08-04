@@ -49,7 +49,6 @@ Tested in Desktop with *View as* + *Other user*; unmapped users see no data (fai
 
 ## Roadmap — v2 "Simulation" (in progress)
 
-Inspired by the capacity-simulation dashboards I built in aerospace:
 
 - [ ] **What-if parameters** (sliders) — simulate SLA recalibration and demand scenarios
 - [ ] **Scenario switching**  baseline vs adjusted assumptions
