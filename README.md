@@ -10,7 +10,7 @@ In aerospace supply chain (Airbus, Toulouse), I built simulation and monitoring 
 
 ## Key Insight
 
-Delivery delays are not driven by geography or seasonality — they are driven by **over-promising on premium shipping tiers**:
+Delivery delays are not driven by geography or seasonality  they are driven by **over-promising on premium shipping tiers**:
 
 | Shipping Mode | Orders | On-time % | Real days | Promised days |
 |---|---:|---:|---:|---:|
@@ -19,7 +19,7 @@ Delivery delays are not driven by geography or seasonality — they are driven b
 | Second Class | 12,778 | 23.4% | 3.99 | 2.00  |
 | First Class | 10,079 | 4.7% | 2.00 | 1.00  |
 
-**Recommendation:** recalibrate promised lead times on First/Second Class — operational performance is stable; the promises are not realistic.
+**Recommendation:** recalibrate promised lead times on First/Second Class, operational performance is stable; the promises are not realistic.
 
 ## Dashboard Pages
 
