@@ -14,10 +14,10 @@ Delivery delays are not driven by geography or seasonality — they are driven b
 
 | Shipping Mode | Orders | On-time % | Real days | Promised days |
 |---|---:|---:|---:|---:|
-| Standard Class | 39,324 (60%) | 61.9% | 4.00 | 4.00 ✅ |
+| Standard Class | 39,324 (60%) | 61.9% | 4.00 | 4.00  |
 | Same Day | 3,571 | 54.3% | 0.48 | 0.00 |
-| Second Class | 12,778 | 23.4% | 3.99 | 2.00 🔴 |
-| First Class | 10,079 | 4.7% | 2.00 | 1.00 🔴 |
+| Second Class | 12,778 | 23.4% | 3.99 | 2.00  |
+| First Class | 10,079 | 4.7% | 2.00 | 1.00  |
 
 **Recommendation:** recalibrate promised lead times on First/Second Class — operational performance is stable; the promises are not realistic.
 
