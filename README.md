@@ -2,7 +2,7 @@
 
 Interactive delivery-performance dashboard built on the **DataCo Smart Supply Chain** dataset (180K+ order lines, 65,752 orders): on-time delivery monitoring, real vs scheduled shipping analysis, and row-level security.
 
-> 🔗 Companion project: [supply-chain-control-tower-sql](https://github.com/PetiteReb/supply-chain-control-tower-sql) — the same dataset rebuilt as a PostgreSQL star-schema warehouse. Together they cover the full BI chain: raw data → SQL warehouse → semantic model → dashboard.
+>  Companion project: [supply-chain-control-tower-sql](https://github.com/PetiteReb/supply-chain-control-tower-sql) -> the same dataset rebuilt as a PostgreSQL star-schema warehouse. Together they cover the full BI chain: raw data → SQL warehouse → semantic model → dashboard.
 
 ## Business Context
 
