@@ -50,11 +50,11 @@ Tested in Desktop with *View as* + *Other user*; unmapped users see no data (fai
 ## Roadmap — v2 "Simulation" (in progress)
 
 
-- [ ] **What-if parameters** (sliders) — simulate SLA recalibration and demand scenarios
+- [ ] **What-if parameters** (sliders) simulate SLA recalibration and demand scenarios
 - [ ] **Scenario switching**  baseline vs adjusted assumptions
 - [ ] **Geographic view**  order latitude/longitude on Azure Maps
 - [ ] **Drillthrough** to order-level detail + report tooltip pages
-- [ ] **Field parameters** —user-selected metrics and dimensions
+- [ ] **Field parameters** user-selected metrics and dimensions
 - [ ] Bookmarks & page navigation
 
 ## Tech Stack
@@ -64,6 +64,6 @@ Dataset: [DataCo Smart Supply Chain (Kaggle)](https://www.kaggle.com/datasets/sh
 
 ## About Me
 
-**Rebecca Olivier** — Data & Analytics Consultant
+**Rebecca Olivier**  Data & Analytics Consultant
 Aerospace & supply chain background (Airbus, Bombardier, Thales) · relocating to Ontario, Canada 🇨🇦
 [LinkedIn](https://linkedin.com/in/rebeccaolivier-/) · rebecca.olivier28@gmail.com
