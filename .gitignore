@@ -1,0 +1,10 @@
+# Données volumineuses — jamais sur GitHub
+*.csv
+data/
+
+# Fichiers temporaires Power BI
+~$*.pbix
+*.pbix.tmp
+
+# Secrets
+.env
