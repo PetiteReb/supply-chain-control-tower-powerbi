@@ -60,7 +60,7 @@ Tested in Desktop with *View as* + *Other user*; unmapped users see no data (fai
 ## Tech Stack
 
 Power BI Desktop · DAX · Star schema modeling · RLS
-Dataset: [DataCo Smart Supply Chain (Kaggle)](https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis) — not committed here (~95 MB)
+Dataset: [DataCo Smart Supply Chain (Kaggle)](https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis) not committed here (~95 MB)
 
 ## About Me
 
