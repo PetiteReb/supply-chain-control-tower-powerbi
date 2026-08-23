@@ -5,6 +5,8 @@ from the DataCo Smart Supply Chain dataset, built to answer one question:
 
 **Why are 57% of deliveries late, and what would it take to fix it?**
 
+![Executive Overview](images/01_executive_overview.png)
+
 ---
 
 ## The finding
@@ -77,6 +79,9 @@ DIVIDE(
 ---
 
 ## What's in the report
+![Delivery Performance](images/02_delivery_performance.png)
+![Delivery Simulator](images/03_delivery_simulator.png)
+![Market Detail drillthrough](images/04_market_detail.png)
 
 | Page | Purpose |
 |---|---|
