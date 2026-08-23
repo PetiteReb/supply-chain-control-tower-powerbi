@@ -3,7 +3,7 @@
 End-to-end Power BI analysis of **180,519 order lines** (65,752 orders, 2015–2018)
 from the DataCo Smart Supply Chain dataset, built to answer one question:
 
-**Why are 57% of deliveries late — and what would it take to fix it?**
+**Why are 57% of deliveries late, and what would it take to fix it?**
 
 ---
 
