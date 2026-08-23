@@ -1,69 +1,116 @@
-# Supply Chain Control Tower Power BI Dashboard (IN PROGRESS)
+# Supply Chain Control Tower : Power BI
 
-Interactive delivery-performance dashboard built on the **DataCo Smart Supply Chain** dataset (180K+ order lines, 65,752 orders): on-time delivery monitoring, real vs scheduled shipping analysis, and row-level security.
+End-to-end Power BI analysis of **180,519 order lines** (65,752 orders, 2015–2018)
+from the DataCo Smart Supply Chain dataset, built to answer one question:
 
->  Companion project: [supply-chain-control-tower-sql](https://github.com/PetiteReb/supply-chain-control-tower-sql) -> the same dataset rebuilt as a PostgreSQL star-schema warehouse. Together they cover the full BI chain: raw data → SQL warehouse → semantic model → dashboard.
+**Why are 57% of deliveries late — and what would it take to fix it?**
 
-## Business Context
+---
 
-In aerospace supply chain (Airbus, Toulouse), I built simulation and monitoring dashboards used for capacity planning decisions. This project reproduces that "control tower" approach on a public dataset: monitor deliveries, find out *why* they are late, and quantify the fix.
+## The finding
 
-## Key Insight
+On-time delivery sits at **42.7%**. The interesting part is where it *doesn't* vary.
 
-Delivery delays are not driven by geography or seasonality  they are driven by **over-promising on premium shipping tiers**:
+- **Flat across markets** — every region lands between 42% and 43%
+- **Flat across time** — 36 consecutive months oscillating around the same mean
 
-| Shipping Mode | Orders | On-time % | Real days | Promised days |
-|---|---:|---:|---:|---:|
-| Standard Class | 39,324 (60%) | 61.9% | 4.00 | 4.00  |
-| Same Day | 3,571 | 54.3% | 0.48 | 0.00 |
-| Second Class | 12,778 | 23.4% | 3.99 | 2.00  |
-| First Class | 10,079 | 4.7% | 2.00 | 1.00  |
+A problem that uniform is not regional and not seasonal. It is **structural**.
 
-**Recommendation:** recalibrate promised lead times on First/Second Class, operational performance is stable; the promises are not realistic.
+Tracing it to `Shipping Mode` located the cause: **the premium tiers over-promise.**
 
-## Dashboard Pages
+| Shipping mode | Promised | Actually delivered |
+|---|---|---|
+| Standard Class | 4 days | 4 days ✅ |
+| Second Class | 2 days | ~4 days 🔴 |
+| First Class | 1 day | 2 days 🔴 |
 
-1. **Executive Overview**  headline KPIs, orders by market and year
-2. **Delivery Performance** on-time % by shipping mode, real vs scheduled days, summary matrix, Year/Market slicers
+Customers paying for speed are the ones being let down — not because shipping is slow,
+but because the commitment was never achievable.
 
-![Executive Overview](images/01_executive_overview.png)
-![Delivery Performance](images/02_delivery_performance.png)
+### Quantifying the fix
 
-## Data Model
+Rather than stopping at a recommendation, the report includes a **what-if simulator**.
+Adding a single day to the promised lead time on First and Second Class:
 
-Star schema: `Facts_Order` (fact) + `Dim_Date`, `Dim_Customer`, `Dim_Product` dimensions, plus a `UserSecurity` mapping table for dynamic RLS.
+> **On-time delivery: 42.7% → 62.0%  ( +19.3 points )**
 
-## Securit  Row-Level Security (RLS)
+One day of honesty on the customer promise recovers nearly twenty points of
+service performance — with no change to actual logistics.
 
-- **Static role**  `Europe Manager`: `Facts_Order[Market] = "Europe"`
-- **Dynamic role**  `Regional Manager`:
+---
+
+## A note on measurement rigour
+
+The first version of this dashboard reported on-time delivery at **45.2%**. That number
+was wrong, and finding out why is the most useful thing in this project.
+
+The KPI was built on `Late_delivery_risk = 0`. But a **cancelled** shipment is never late,
+so its flag reads 0, meaning **2,855 cancelled orders (4.3%) were being counted as
+on-time deliveries**, inflating the metric by 2.5 points.
+
+The code was correct. The *definition* was not.
+
+The measure was rebuilt on `Delivery Status`, so it now states its own business rule
+instead of depending on an opaque flag, and orders that were never delivered are excluded
+from both numerator and denominator:
 
 ```dax
-[Market] = LOOKUPVALUE(
-    UserSecurity[Market],
-    UserSecurity[Email], USERPRINCIPALNAME()
+On-time Delivery % =
+VAR Delivered =
+    FILTER( Facts_Order, Facts_Order[Delivery Status] <> "Shipping canceled" )
+RETURN
+DIVIDE(
+    COUNTROWS(
+        FILTER( Delivered,
+            Facts_Order[Delivery Status] IN { "Shipping on time", "Advance shipping" } )
+    ),
+    COUNTROWS( Delivered )
 )
 ```
 
-Tested in Desktop with *View as* + *Other user*; unmapped users see no data (fail-closed).
+---
 
-## Roadmap  v2 "Simulation" (in progress)
+## What's in the report
 
+| Page | Purpose |
+|---|---|
+| **Executive Overview** | Headline KPIs, on-time by market, monthly trend with average line |
+| **Delivery Performance** | The shipping-mode diagnosis — promised vs actual, by tier |
+| **Delivery Simulator** | What-if parameter: adjust the promised lead time, watch on-time respond |
+| **Market Detail** | Drillthrough page — right-click any market to test whether the pattern holds there |
+| **Ask the Data** | Natural-language Q&A with curated synonyms and suggested questions |
 
-- [ ] **What-if parameters** (sliders) simulate SLA recalibration and demand scenarios
-- [ ] **Scenario switching**  baseline vs adjusted assumptions
-- [ ] **Geographic view**  order latitude/longitude on Azure Maps
-- [ ] **Drillthrough** to order-level detail + report tooltip pages
-- [ ] **Field parameters** user-selected metrics and dimensions
-- [ ] Bookmarks & page navigation
+---
 
-## Tech Stack
+## Technical scope
 
-Power BI Desktop · DAX · Star schema modeling · RLS
-Dataset: [DataCo Smart Supply Chain (Kaggle)](https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis) not committed here (~95 MB)
+**Data preparation**: Power Query profiling on the full dataset, staging query pattern,
+PII columns removed at source, star schema (1 fact + 3 dimensions + marked date table).
+Grain proven, not assumed: 65,752 distinct orders across 180,519 rows.
 
-## About Me
+**Modelling** : Role-playing date dimension (`USERELATIONSHIP` for order vs shipping date),
+`CALCULATE`-based conditional measures, iterators with scoped `VAR` blocks, what-if
+parameters on a disconnected table.
 
-**Rebecca Olivier**  Data & Analytics Consultant
-Aerospace & supply chain background (Airbus, Bombardier, Thales) · relocating to Ontario, Canada 🇨🇦
-[LinkedIn](https://linkedin.com/in/rebeccaolivier-/) · rebecca.olivier28@gmail.com
+**Security** : Dynamic row-level security: one role plus a mapping table, resolved with
+`USERPRINCIPALNAME()`, tested with *View as* / *Test as role*.
+
+**Reporting** :Drillthrough with filter propagation, Q&A with a curated linguistic schema,
+analytics reference lines, what-if interaction.
+
+**Deployment** : Published to a dedicated Power BI workspace, RLS members assigned,
+semantic model endorsed as *Promoted*.
+
+---
+
+## Roadmap
+
+- Bookmarks and button-driven navigation
+- Key influencers and decomposition tree
+- Date-continuous axis to unlock trend line and forecasting
+- Migration of the Q&A page to Copilot (Power BI Q&A retires December 2026)
+
+---
+
+*Dataset: [DataCo Smart Supply Chain](https://data.mendeley.com/datasets/8gx2fvg2k6/5) — public research dataset.
+Built with Power BI Desktop and the Power BI Service.*
